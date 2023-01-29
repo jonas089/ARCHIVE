@@ -1,0 +1,27 @@
+{% extends 'index.html' %}
+{% block content %}
+  {% if artist_data.stripe_account_id != '0' %}
+  <h1>Pending Stripe Balance {{ stripe_balance_data.pending / 100 }} €</h1>
+  <h1>Available Stripe Balance {{ stripe_balance_data.available / 100 }} €</h1>
+    {% for product in products %}
+      {% if product.author['username'] == current_user.username and product.is_sold == 'Yes' %}
+        <article class="media">
+          <img src="/static/media/products/{{product.product_picture_path}}" style="max-height:500px;" align="middle">
+          <div class="media-body" style="padding-left:50px;">
+            <div class="article-metadata">
+              <h1><a href="/product/{{product.id}}">{{ product.product_name }}</a></h1>
+              <p>Created by {{ product.author['username'] }}</p>
+            </div>
+            <h2>Purchased by: {{ product.customer_email }}</h2>
+            <h1>[Shipping Details]</h1>
+            <h1>Country: {{ product.customer_country }}</h1>
+            <h1>Region: {{ product.customer_region }}</h1>
+            <h1>Address: {{ product.customer_address }}</h1>
+            <h1>Zip: {{ product.customer_zip }}</h1>
+            <br>
+          </div>
+        </article>
+      {% endif %}
+    {% endfor %}
+  {% endif %}
+{% endblock content %}

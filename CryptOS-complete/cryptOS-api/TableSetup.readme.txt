@@ -1,0 +1,2 @@
+CREATE TABLE cryos_core ( username VARCHAR(256) NOT NULL,  btcspent VARCHAR(256) NOT NULL);
+CREATE TABLE cryos_db ( username VARCHAR(256) NOT NULL,  password VARCHAR(256) NOT NULL, email VARCHAR(256) NOT NULL, rvnaddr VARCHAR(256) NOT NULL, btcaddr VARCHAR(256) NOT NULL, cryosaddr VARCHAR(256) NOT NULL);

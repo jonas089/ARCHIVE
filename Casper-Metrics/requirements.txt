@@ -1,0 +1,5 @@
+termcolor
+numpy
+matplotlib
+pickle
+pycspr

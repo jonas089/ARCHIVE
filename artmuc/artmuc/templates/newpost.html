@@ -1,0 +1,62 @@
+{% extends 'index.html' %}
+{% block content %}
+<div class="content-section">
+  <form action="new" method="POST" enctype="multipart/form-data">
+      {{ form.hidden_tag() }}
+      <fieldset class="form-group">
+        <legend class="border-bottom mb-4">Upload Product</legend>
+        <div class="form-group">
+          {{ form.product_name.label(class="form-control-label") }}
+          {% if form.product_name.errors %}
+            {{ form.product_name(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.product_name.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.product_name(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.product_description.label(class="form-control-label") }}
+          {% if form.product_description.errors %}
+            {{ form.product_description(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.product_description.errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.product_description(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+        <div class="form-group">
+          {{ form.product_price.label(class="form-control-label") }}
+          {% if product_price_errors %}
+            {{ form.product_price(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in product_price_errors %}
+                <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+          {% else %}
+            {{ form.product_price(class="form-control form-control-lg") }}
+          {% endif %}
+        </div>
+      </fieldset>
+      <div class="form-group">
+        {{ form.picture.label() }}
+        {{ form.picture(class="form-control-file") }}
+        {% if form.picture.errors %}
+          {% for error in form.picture.errors %}
+            <span class="text-danger">{{ error }}</span><br>
+          {% endfor %}
+        {% endif %}
+      </div>
+      <div class="form-group">
+        {{ form.submit(class="btn btn-outline-info") }}
+      </div>
+  </form>
+</div>
+{% endblock content %}

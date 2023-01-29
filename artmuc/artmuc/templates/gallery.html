@@ -1,0 +1,41 @@
+{% extends 'index.html' %}
+<!--
+#################################################################
+#[ The Gallery Contains All Products Of A Specific Artist       #
+#The Artist Is Passed As A Variable To Filter Products From DB ]#
+#################################################################
+-->
+
+{% block content %}
+  <div>
+    <br>
+    <div class="media">
+      <img class="rounded-circle account-img" src="/static/media/profile_pics/{{artist_data.profile_picture_path}}">
+      <div class="media-body">
+        <h2 style="color:yellow"><b>{{ artist_data.username }}</b></h2>
+        <p style="color:white; font-size:20px;">{{ artist_data.email }}</p>
+      </div>
+  </div>
+  {% if artist_data.stripe_account_id != '0' %}
+    {% for product in products %}
+      {% if product.author['username'] == author %}
+        <article class="media">
+          <img src="/static/media/products/{{product.product_picture_path}}" style="max-height:500px;" align="middle">
+          <div class="media-body" style="padding-left:50px;">
+            <div class="article-metadata">
+              <h1><a href="/product/{{product.id}}">{{ product.product_name }}</a></h1>
+              <p>Created by {{ product.author['username'] }}</p>
+            </div>
+            <h1>{{ product.product_description }}</h1>
+            <br>
+          </div>
+        </article>
+      {% else %}
+        <h1 style="color:orange">This Artist Has Not Activated His/Her Account Yet :(</h1>
+      {% endif %}
+      <br>
+    {% endfor %}
+  {% else %}
+    <h1 style="color:orange">This Artist Has Not Linked A Payment Method To His/Her Account Yet :(</h1>
+  {% endif %}
+{% endblock content %}

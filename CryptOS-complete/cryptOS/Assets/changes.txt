@@ -1,0 +1,18 @@
+< development plan for CryOS mobile application >
+
+A. GUI
+	A.1 Buttons and Inputs
+		1. Buttons: "Close / Exit" "Get coins now" "Send" "Lock" "Bitcoin / Ravencoin" "Help / Info" "Confirm"
+		2. Inputs: "Receipient & Sender Inputs in Transaction panel" "[Mail] --> later" "Lock slider"
+	A.2 Materials
+		1. Stylesheets: "Blue & White + Black font" or "Black and Blue + White font" or "dark theme included"
+		2. Designs: "Material / Form for top-bar" "Nicer scroll view" "Better navigation"
+B. Functionality
+	B.1 Payments
+		1. Improve performance & visual feedback
+		2. More core - information
+		3. Block Explorer built in (tiny)
+	B.2 Interactive
+		1. Security expanse (Fingerprint etc.)
+		2. Lock / Unlock / Logout / Delete Account / Recover password options
+		3. Email System in Python

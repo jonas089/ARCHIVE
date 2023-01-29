@@ -1,0 +1,28 @@
+##############################################
+
+
+######  #####  #
+#    #  #   #  #
+######  #####  #
+#    #  #      #
+#    #  #      #
+
+
+##############################################
+
+CryOS Balance : /Balance/<username>
+CryOS Address : /Address/<username>
+CryOS Transaction : /Transaction/<sender>/<recipient>/<amount>/<password>
+CryOS Tx (user to addr) : /Tx/<sender>/<address>/<amount>/<password>
+CryOS History : /History/<username>
+
+Btc Address : /BtcAddress/<username>
+Btc Balance : /BtcBalance/<username>
+Btc Transaction : /BtcTransaction/<username>/<password>/<recipient>/<amount>
+
+Rvn Balance : /RvnBalance/<username>
+Rvn Address : /RvnAddress/<username>
+Rvn Transaction : /RvnTransaction/<username>/<password>/<recipient>/<amount>
+
+Rvn BUY : /RavenPurchase/<username>/<password>/<amount>
+Btc BUY : /BitcoinPurchase/<username>/<password>/<amount>

@@ -1,0 +1,91 @@
+{% extends 'index.html' %}
+{% block content %}
+
+<br>
+
+  <article class="media">
+    <img src="/static/media/products/{{product.product_picture_path}}" style="max-height:500px;" align="middle">
+    <div class="media-body" style="padding-left:50px;">
+      <div class="article-metadata">
+        <h1>{{ product.product_name }}</h1>
+        <p>Created by {{ product.author['username'] }}</p>
+      </div>
+      <h1>{{ product.product_description }}</h1>
+      <br>
+    {% if product.is_sold == 'No' %}
+
+      {% if current_user.username and current_user.country and current_user.region and current_user.address and current_user.zip%}
+
+        <div>
+          <h2>Buy for {{product.product_price}}€</h2>
+          <button type="button" class="btn btn-primary" id="custom-button">Pay with Card</button>
+        </div>
+      {% else %}
+
+        <h1 style="color:orange; font-size:10px;">You Need To Login And Fill In All Required Shipping Information In Order To Purchase A Product!</h1>
+      {% endif %}
+
+      <script src="https://checkout.stripe.com/checkout.js"></script>
+      <script>
+        var handler = StripeCheckout.configure({
+          key: "{{ key }}",
+          image: "https://stripe.com/img/documentation/checkout/marketplace.png",
+          locale: "auto",
+          token: function(token) {
+            fetch("/charge", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", },
+              body: JSON.stringify({
+                token: token.id,
+                product: "{{product.id}}"
+              }),
+            })
+            .then(function(response) {
+              if (response.ok) {
+                return response.json();
+              } else {
+                throw new Error('Something went wrong.');
+              }
+            })
+            .then(function(jsonResponse) {
+              // update the alert message
+              document.getElementById("alert").innerText = "Thanks for purchasing!"
+              // show the bootstrap alert
+              document.getElementById("status").style.display = "inline";
+            })
+            .catch(function(err) {
+              // update the alert message
+              document.getElementById("alert").innerText = "Something went wrong."
+              // show the bootstrap alert
+              document.getElementById("status").style.display = "inline";
+            });
+          }
+        });
+        document.getElementById("custom-button").addEventListener("click", function(e) {
+          // hide the bootstrap alert
+          document.getElementById("status").style.display = "none";
+          handler.open({
+            name: "{{ product.product_name }}",
+            description: "{{ product.product_description }}",
+            amount: parseInt("{{ product.product_price * 100 }}"),
+            currency: "eur"
+          });
+          e.preventDefault();
+        });
+
+        window.addEventListener("popstate", function() {
+          handler.close();
+        });
+      </script>
+
+    <div id="status" style="display:none;">
+      <br>
+      <div class="alert alert-primary" id="alert" role="alert"></div>
+    </div>
+
+    {% else %}
+      <h1>SOLD OUT</h1>
+    {% endif %}
+    </div>
+  </article>
+{% endblock content %}

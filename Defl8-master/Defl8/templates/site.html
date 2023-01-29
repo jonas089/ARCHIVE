@@ -1,0 +1,354 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <style>
+      .button {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      display: inline-block;
+      font-size: 12px;
+      margin: 4px 2px;
+      cursor: pointer;
+    }
+    </style>
+    <script src="{{ url_for('static', filename='web3.min.js') }}"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="img/favicon.png" type="image/png">
+    <title>DEFL8</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/themify-icons.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/owl-carousel/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='vendors/animate-css/animate.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive.css') }}">
+</head>
+<body style="background-color:white;" href="">
+    <header class="header_area">
+        <div class="main_menu">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
+                    <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item"><a class="nav-link" href="https://metamask.io/">Download Metamask</a></li>
+                            <!-- Contract Address -->
+                            <li class="nav-item"><a class="nav-link" href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x3A0e2cD01941fE1286CDdE6fa4fb191456C1e003">Trade on Pancakeswap</a></li>
+                            <li class="nav-item"><a class="nav-link" href="price.html">Market Data</a></li>
+                            <li class="nav-item submenu dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">More</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a class="nav-link" href="price.html">Smart Contract</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="element.html">Github</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="right-button">
+                        <ul>
+                            <button class="button" onclick="load();">Connect</button>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <section class="home_banner_area">
+        <div class="banner_inner d-flex align-items-center">
+            <!--<video controls position="absolute" height="400" width="600" autoplay loop muted>
+              <source src="{{ url_for('static', filename='img/video.mp4') }}" type="video/mp4">
+              Your browser does not support the video tag.
+            </video>-->
+            <!-- Contract Address -->
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1 offset-lg-1 col-xl-6 offset-xl-1">
+                        <div class="banner_content">
+                          <!-- Contract Address -->
+                          <h1>DFL8 V1.0 <br> Launched 03.09.2021</h1> <br> <p>Install <a href="https://metamask.io">Metamask</a> and Claim DFL8 for free. (network and service fees apply)<br> <br> To get started, press the "Connect" - Button.<br> <br> Provide liquidity and trade DFL8 on <a href="https://exchange.pancakeswap.finance/#/swap?outputCurrency=0x3A0e2cD01941fE1286CDdE6fa4fb191456C1e003">Pancakeswap</a></p>
+                          <p>Tutorial on trading custom Tokens such as DEFL8: <a href="https://revenuecoin.io/how-to-add-custom-token-to-metamask-and-pancakeswap/">CLICK HERE</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="overlay"></div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-1 offset-lg-1 col-xl-6 offset-xl-3">
+                        <div class="banner_content">
+                          <!-- Contract Address -->
+                            <h3><br> <br> <p>Contract Address: <a href="https://bscscan.com/token/0x3A0e2cD01941fE1286CDdE6fa4fb191456C1e003">0x3A0e2cD01941fE1286CDdE6fa4fb191456C1e003</a> <br> the people's deflationary Token on Binance-Smartchain.</p></h3>
+                            <p>DEFL8 is a simple, electronic, deflationary currency.</br>DEFL8 is highly deflationary, as 20% of every transaction are burnt. This does not include contract calls.</p>
+                            <button class="button" id="claimbutton" onclick="ClaimIt();">Claim 1000 DFL8</button>
+                            <p>In order to claim, accept <b>2</b> <br> incoming Transactions through <a href="https://metamask.io/">Metamask</a></p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-area area-padding">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-6 col-lg-4">
+                  <div class="single-service">
+                      <div class="service-icon">
+                      </div>
+                      <div class="service-content">
+                          <h5>Available to everyone</h5>
+                          <p>Every wallet can claim 1000 coins per week, directly through this Website. </br> This is the only way, to mint/mine DFL8. This is a fair method of distribution, developed for our community.</p>
+                          <p>Claimed: <span id="status">Loading... </span></p>
+                          <button class="button" onclick="fetchStatus();">UPDATE</button>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                  <div class="single-service">
+                      <div class="service-icon">
+                      </div>
+                      <div class="service-content">
+                          <h5>Specs</h5>
+                          <p><h6>Max Supply</h6> 1 Trillion DFL8 </br></br> <h6>Burned per Transaction</h6> 20% </br></br> <h6>Pre-minted</h6> 10% of Supply </br></br> <h6>Claimable per week</h6> 1000 DFL8</p>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-6 col-lg-4">
+                  <div class="single-service">
+                      <div class="service-icon">
+                      </div>
+                      <div class="service-content">
+                          <h5>Deflationary</h5>
+                          <p>Whenever a transaction is submitted to the network, 20% of the value transferred are burnt. This means, that 20% of the DFL8 are sent to a "dead" wallet and are therefore lost. This reduces inflation.</p>
+                      </div>
+                  </div>
+              </div>
+
+
+            </div>
+        </div>
+    </section>
+
+<script type="text/javascript">
+
+  function updateStatus(status) {
+    const statusEl = document.getElementById('status');
+    statusEl.innerHTML = status;
+    console.log(status);
+  }
+
+  async function loadWeb3() {
+      if (window.ethereum) {
+          window.web3 = new Web3(window.ethereum);
+          window.ethereum.enable();
+      }
+  }
+
+  async function load() {
+      await loadWeb3();
+      window.contract = await loadContract();
+      CanIClaim();
+  }
+
+  async function CanIClaim(){
+    const accounts = await window.web3.eth.getAccounts()
+    const account = await getCurrentAccount();
+    const state =  await window.contract.methods.canIclaim().call({from:account});
+    const button = document.getElementById('claimbutton');
+    console.log(`${state}`)
+    if (`${state}` == 0) {
+      button.disabled = true;
+    }
+    else{
+      button.disabled = false;
+    }
+
+  }
+
+  async function claimableAmount() {
+      const amount = await window.contract.methods.TotalAmountMinted().call();
+      updateStatus(`${amount} (out of 1.25 Trillion DFL8)`);
+  }
+
+  async function fetchStatus()
+  {
+    await claimableAmount();
+  }
+  load();
+  async function loadContract() {
+    return await new window.web3.eth.Contract([
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "tokenAddress",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_claimable_amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_claim_interval",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "_availableTokens",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "Claim",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "TotalAmountMinted",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "availableTokens",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "canIclaim",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"name": "claim",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "claimer",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "amount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "last_claimed",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "claim_interval",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "claimable_amount",
+		"outputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "token",
+		"outputs": [
+			{
+				"internalType": "contract Token",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	}
+]/*ABI*/, '0x7CCb688B563A3E889B39031a3C1386dc6400DaD8');// Contract Address
+    }
+
+
+  async function getCurrentAccount() {
+    const accounts = await window.web3.eth.getAccounts();
+    return accounts[0];
+  }
+
+  async function ClaimIt(){
+    const accounts = await window.web3.eth.getAccounts()
+    await window.web3.eth.sendTransaction({from:accounts[0], to:"0x61177DbE2eA9f89Acea038CA88EbDd7A893Aa21b",
+      value:'250000000000000'},
+      function (err, res){});
+
+    const account = await getCurrentAccount();
+    await window.contract.methods.Claim().send({from:account})
+  }
+
+
+</script>
+
+</body>

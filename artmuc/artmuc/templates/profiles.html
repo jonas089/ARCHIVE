@@ -1,0 +1,20 @@
+<!-- This Template Is Available To Anyone Who Visits The Site -->
+<!-- This Template Shows The Profiles Of All Artists As A List -->
+{% extends 'index.html' %}
+{% block content %}
+{% for account in accounts %}
+  {% if account.artist_key %}
+    <article class="media content-section">
+      <img class="rounded-circle account-img" src="static/media/profile_pics/{{account.profile_picture_path}}">
+      <div class="media-body">
+        <div class="article-metadata">
+          <a style="font-size:30px" class="mr-2" href='/gallery/{{account.username}}'>{{account.username}}</a>
+        </div>
+        <div class="article content-center">
+          <p style="font-size:20px;">{{account.biography}}</p>
+        </div>
+      </div>
+    </article>
+  {% endif %}
+{% endfor %}
+{% endblock content %}

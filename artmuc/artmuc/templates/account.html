@@ -1,0 +1,196 @@
+{% extends "index.html" %}
+{% block content %}
+  <div class="content-section">
+    <div class="media">
+      <img class="rounded-circle account-img" src="{{profile_picture_path}}">
+      <div class="media-body">
+        <h2 class="account-heading">{{ current_user.username }}</h2>
+        <p class="text-secondary">{{ current_user.email }}</p>
+      </div>
+    </div>
+    {% if current_user.artist_key %}
+      <h1>ARTIST ACCOUNT AREA</h1>
+      <form action="account" method="POST" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Account Information</legend>
+            <div class="form-group">
+              {{ form.username.label(class="form-control-label") }}
+              {% if form.username.errors %}
+                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.username(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form.email.label(class="form-control-label") }}
+              {% if form.email.errors %}
+                {{ form.email(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.email(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form.biography.label(class="form-control-label") }}
+              {% if form.biography.errors %}
+                {{ form.biography(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.biography.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.biography(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+          </fieldset>
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Add Method For Payments Through <a href="https://www.stripe.com">Stripe</a></legend>
+            {% if current_user.stripe_account_id == '0' %}
+            <h1 style="color:red">No Payment Method Linked To This Account!</h1>
+            {% endif %}
+            <a style="font-size:20px" href="https://connect.stripe.com/express/oauth/authorize?redirect_uri=http://127.0.0.1/stripe_checkout&client_id=ca_HWBa7MUTrcRe4WAn0HnkHhAFh7zlhyYq&stripe_user[email]={{current_user.email}}">{% if current_user.stripe_account_id == '0' %} ADD PAYMENT METHOD {% else %} UPDATE PAYMENT METHOD {% endif %}</a>
+          </fieldset>
+          <div class="form-group">
+            {{ form.picture.label() }}
+            {{ form.picture(class="form-control-file") }}
+            {% if form.picture.errors %}
+              {% for error in form.picture.errors %}
+                <span class="text-danger">{{ error }}</span><br>
+              {% endfor %}
+            {% endif %}
+          </div>
+          <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+          </div>
+      </form>
+
+      {% for product in products %}
+        {% if product.author['username'] == current_user.username %}
+          <article class="media">
+            <img src="/static/media/products/{{product.product_picture_path}}" style="max-height:500px;" align="middle">
+            <div class="media-body" style="padding-left:50px">
+              <div class="article-metadata">
+                <h1>{{ product.product_name }}</h1>
+                <p>Created by {{ product.author['username'] }}</p>
+              </div>
+              <div class="article">
+                <p style="font-size:20px;">{{ product.product_description }}</p>
+              </div>
+              <br>
+              {% if product.is_sold == 'No' %}
+              <h1>Price: {{product.product_price}}€ <input type="submit" name="buy" value="Delete" onclick="window.location.href='/delete/{{product.product_picture_path}}';"></input></h1>
+              {% else %}
+              <h1>SOLD <input type="submit" name="buy" value="Delete" onclick="window.location.href='/delete/{{product.product_picture_path}}';"></input></h1>
+              {% endif %}
+            </div>
+          </article>
+        {% endif %}
+        <br>
+      {% endfor %}
+    {% else %}
+      <h1>CUSTOMER ACCOUNT AREA</h1>
+      <form action="account" method="POST" enctype="multipart/form-data">
+          {{ form.hidden_tag() }}
+          <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Account Information</legend>
+            <div class="form-group">
+              {{ form.username.label(class="form-control-label") }}
+              {% if form.username.errors %}
+                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.username(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+          </fieldset>
+          <fieldset class="form-group">
+            <legend>Add Payment Method Secured By <a href="https://stripe.com">Stripe</a></legend>
+            <div class="form-group">
+              {{ form.username.label(class="form-control-label") }}
+              {% if form.username.errors %}
+                {{ form.username(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.username.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.username(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form.country.label(class="form-control-label") }}
+              {% if form.country.errors %}
+                {{ form.country(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.country.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.country(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form.address.label(class="form-control-label") }}
+              {% if form.address.errors %}
+                {{ form.address(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.address.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.address(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form.region.label(class="form-control-label") }}
+              {% if form.region.errors %}
+                {{ form.region(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.region.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.region(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+            <div class="form-group">
+              {{ form.zip.label(class="form-control-label") }}
+              {% if form.zip.errors %}
+                {{ form.zip(class="form-control form-control-lg is-invalid") }}
+                <div class="invalid-feedback">
+                  {% for error in form.zip.errors %}
+                    <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+              {% else %}
+                {{ form.zip(class="form-control form-control-lg") }}
+              {% endif %}
+            </div>
+          </fieldset>
+          <div class="form-group">
+            {{ form.submit(class="btn btn-outline-info") }}
+          </div>
+      </form>
+    {% endif %}
+
+    </div>
+{% endblock content %}

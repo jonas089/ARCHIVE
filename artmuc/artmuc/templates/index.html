@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap 4 implementation -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- End of JS implementation -->
+    <link rel= "stylesheet" type="text/css" href="{{url_for('static',filename='styles/index.css')}}">
+    <title>{{title}}</title>
+  </head>
+  <body style="background-image: url('/static/media/grey-background.jpg');">
+    <!-- NAVIGATION BAR HTML -->
+    <nav class="nav">
+            <div class="container">
+                <div class="logo">
+                  <a href="https://www.artmuc.info/" class="custom-logo-link" rel="home" itemprop="url"><img src="https://www.artmuc.info/wp-content/uploads/2019/10/cropped-heasder_Logo_artmuc.jpg" class="custom-logo" alt="" itemprop="logo" width="155" height="70"></a>
+                </div>
+                <div id="mainListDiv" class="main_list">
+                    <ul class="navlinks">
+                        <li><a href="/profiles">Browse</a></li>
+                        <li><a href="#">Contact</a></li>
+                        {% if current_user.is_authenticated %}
+                        <li><a href="/account">Account</a></li>
+                        {% if current_user.artist_key %}
+                        <li><a href="/post/new">Sell Product</a></li>
+                        <li><a href="/balances">Balances</a></li>
+                        {% endif %}
+                        <li><a href="/logout">Logout</a></li>
+                        {% else %}
+                        <li><a href="/login">Login</a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <span class="navTrigger">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </span>
+            </div>
+        </nav>
+        <!-- END OF NAVIGATION BAR HTML -->
+
+        <section class="home">
+        </section>
+        <div style="height: 1000px">
+            <!-- just to make scrolling effect possible -->
+            <div class="container">
+              {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                  {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                      {{ message }}
+                    </div>
+                  {% endfor %}
+                {% endif %}
+              {% endwith %}
+              {% block content%}{% endblock content %}
+            </div>
+        </div>
+
+    {% block scripts %}
+
+    {% endblock scripts %}
+
+    <!-- Jquery needed -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+
+    <!-- Function used to shrink nav bar removing paddings and adding black background -->
+    <script>
+        $(window).scroll(function() {
+            if ($(document).scrollTop() > 50) {
+                $('.nav').addClass('affix');
+                console.log("OK");
+            } else {
+                $('.nav').removeClass('affix');
+            }
+            });
+    </script>
+    <script type="text/javascript">
+    $('.navTrigger').click(function () {
+      $(this).toggleClass('active');
+      console.log("Clicked menu");
+      $("#mainListDiv").toggleClass("show_list");
+      $("#mainListDiv").fadeIn();
+    });
+    </script>
+
+    <!-- JS implementation -->
+    <!--<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <!-- End of JS implementation -->
+  </body>
+</html>
