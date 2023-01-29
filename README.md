@@ -28,6 +28,8 @@ Solve a custom minesweeper game with no hidden layers. Works but is inefficient 
 A custom online shop built from scratch for artists in Munich with a Stripe payment gateway and access restriction for creators (=exclusiveness)
 ### casper-sandbox-v1
 My first react app, built on the Casper Blockchain. Replaced by jonas089/VE-project ( much better )
+### crypto-discord-bot
+A discord bot where users can create and track portfolios using the Coingecko API.
 ### coiffeur-website
 Small website for Coiffeur in Zurich (frontend with GoogleMaps).
 ### inpigritas2020
